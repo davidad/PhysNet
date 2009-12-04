@@ -4,6 +4,7 @@ from interval import interval
 weight_of_an_elephant = log_set()
 weight_of_an_elephant.add_new(["David"], interval(26, 26))
 weight_of_an_elephant.add_new(["Forrest"], interval(10,11))
+weight_of_an_elephant.add_new(["Default"], interval(0,None))
 
 print "Weight of an elephant:"
 weight_of_an_elephant._print()
@@ -30,7 +31,7 @@ elephant_mass_new_york._print()
 
 
 
-all_elephants = weight_of_an_elephant * (number_of_elephants_in_africa + number_of_elephants_in_new_york)
+all_elephants = weight_of_an_elephant * either(number_of_elephants_in_africa, number_of_elephants_in_new_york)
 justify(all_elephants, "I care about all of them")
 
 print "all_elephants:"

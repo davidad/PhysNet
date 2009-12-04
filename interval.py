@@ -18,6 +18,7 @@ class interval:
     def _has_pos(self): return self.max == None or self._sign(self.max) == 1
     def _pos_and_neg(self): return self._has_neg() and self._has_pos()
     def _two_sided(self): return self.min != None and self.max != None
+    def _unbounded(self): return self.min == None and self.max == None
     def _min_zero(self): return self.min != None and self._sign(self.min) == 0
     def _max_zero(self): return self.max != None and self._sign(self.max) == 0
     def _pos_zero(self): return self._pos_and_neg() or self._min_zero() and self._has_pos()
@@ -115,4 +116,19 @@ class interval:
     def __repr__(self):
         return "interval(%s, %s)" % (self.min, self.max)
     def __str__(self):
-        return "[%s to %s]" % ("-Inf" if self.min == None else str(self.min), "Inf" if self.max == None else str(self.max))
+        if self._two_sided():
+            return "[%s to %s]" % (str(self.min), str(self.max))
+        elif self._unbounded():
+            return "<unbounded range>"
+        elif self._no_upper_bound():
+            return "X>=%s" % str(self.min)
+        elif self._no_lower_bound():
+            return "X<=%s" % str(self.max)
+        else:
+            assert False
+        
+        
+        
+        
+        
+        
