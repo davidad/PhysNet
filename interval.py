@@ -126,9 +126,3 @@ class interval:
             return "X<=%s" % str(self.max)
         else:
             assert False
-        
-        
-        
-        
-        
-        
