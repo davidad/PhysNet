@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
 
-#use Lingua::EN::Sentence qw( get_sentences );
-use Text::Sentence qw( split_sentences );
 use utf8;
+use Lingua::EN::Sentence qw( get_sentences );
 use File::Slurp;
 use Scalar::Util qw( looks_like_number );
 use JSON;
@@ -23,12 +22,12 @@ system("html2text -ascii /tmp/scraped.html > /tmp/scraped.txt");
 
 my $text = read_file( "/tmp/scraped.txt" );
 $text =~ s/.//g;
-$text =~ s/\.((.\d+.)+)(?=\s+)/$1\./g;
-my @sentences = split_sentences($text);
+$text =~ s/\."?((.\d+.)+)(?=\s+)/$1\. /g;
+my $sentences = get_sentences($text);
 
 %vals = ();
 
-foreach my $sentence (@sentences) {
+foreach my $sentence (@$sentences) {
   #print "$sentence\n\n===\n\n";
   $sentence =~ s/\n/ /g;
   if ($sentence =~ /([\d,.]+)\s*(lb|kg|pound|kilo|kilogram)s?/) {
