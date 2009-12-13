@@ -1,0 +1,54 @@
+{
+   "giraffe" : {
+      "weight" : {
+         "828" : "Wikipedia:The average mass for an adult male giraffe is 1,191 kilograms (2,630 lb) while the average mass for an adult female is 828 kilograms (1,830 lb)[3][4].",
+         "800" : "Wikipedia:Male giraffes are up to 5.5 metres (18 ft) tall at the horn tips, and weigh between 800 and 1,930 kilograms (1,800 and 4,300 lb).",
+         "1180" : "Wikipedia:Females are between 4 and 4.5 metres (13 and 15 ft) tall and weigh between 550 and 1,180 kilograms (1,200 and 2,600 lb).",
+         "1191" : "Wikipedia:The average mass for an adult male giraffe is 1,191 kilograms (2,630 lb) while the average mass for an adult female is 828 kilograms (1,830 lb)[3][4].",
+         "10" : "Wikipedia:A giraffe's heart, which can weigh up to 10 kg (22 lb) and measure about 60 cm (2 ft) long, must generate approximately double the normal blood pressure for an average large mammal to maintain blood flow to the brain.",
+         "1930" : "Wikipedia:Male giraffes are up to 5.5 metres (18 ft) tall at the horn tips, and weigh between 800 and 1,930 kilograms (1,800 and 4,300 lb).",
+         "550" : "Wikipedia:Females are between 4 and 4.5 metres (13 and 15 ft) tall and weigh between 550 and 1,180 kilograms (1,200 and 2,600 lb).",
+         "29" : "Wikipedia:A giraffe can eat 65 pounds (29 kg) of leaves and twigs daily, but can survive on just 15 pounds (6.8 kg)[24].",
+         "6.8" : "Wikipedia:A giraffe can eat 65 pounds (29 kg) of leaves and twigs daily, but can survive on just 15 pounds (6.8 kg)[24]."
+      }
+   },
+   "elephant" : {
+      "weight" : {
+         "39" : "Wikipedia:Asian males can have tusks as long as the much larger Africans, but they are usually much slimmer and lighter; the heaviest recorded is 39 kg (86 lb).",
+         "90" : "Wikipedia:Both male and female African elephants have large tusks that can reach over 3 m (10 ft) in length and weigh over 90 kg (200 lb).",
+         "120" : "Wikipedia:At birth it is common for an elephant calf to weigh 120 kilograms (260 lb).",
+         "5436" : "Wikipedia:Large males can weigh upward to 5,400 kg (12,000 lb) and stand over 3.4 m (11 ft) tall.",
+         "3000" : "Wikipedia:Mature Sumatrans will usually only measure 1.7–2.6 m (5.6–8.5 ft) at the shoulder and weigh less than 3,000 kg (6,600 lb).",
+         "4500" : "Wikipedia:The Forest Elephant can weigh up to 4,500 kilograms (9,900 lb) and stand about 3 metres (10 ft) tall.",
+         "11778" : "Wikipedia:It is the largest land animal, with males standing 3.2 metres (10 ft) to 4 metres (13 ft) at the shoulder and weighing 3,500 kilograms (7,700 lb) up to a reported 12,000 kilograms (26,000 lb).[21].",
+         "4983" : "Wikipedia:Large males will ordinarily weigh only about 5,000 kg (11,000 lb), but are as tall as the Sri Lankan.",
+         "140" : "Wikipedia:An elephant needs an average of 140 kg (300 lb) of vegetation a day to survive.",
+         "270" : "Wikipedia:An adult elephant can consume 140–270 kg (300–600 lb) of food a day 60%.",
+         "3500" : "Wikipedia:It is the largest land animal, with males standing 3.2 metres (10 ft) to 4 metres (13 ft) at the shoulder and weighing 3,500 kilograms (7,700 lb) up to a reported 12,000 kilograms (26,000 lb).[21].",
+         "113" : "Wikipedia:After a twenty-two-month pregnancy, the mother will give birth to a calf that will weigh about 113 kg (250 lb) and stand over 76 cm (2.5 ft) tall.",
+         "5" : "Wikipedia:With a mass just over 5 kg (11 lb), elephant brains are larger than those of any other land animal, and although the largest whales have body masses twentyfold those of a typical elephant, whale brains are barely twice the mass of an elephant's."
+      }
+   },
+   "rhinoceros" : {
+      "weight" : {
+         "1900" : "Wikipedia:Female Indian rhinos weigh about 1,900 kg.",
+         "700" : "Wikipedia:Typically a mature Sumatran rhino stands about 130 cm (51 in) high at the shoulder, a body length of 240–315 cm (94–120 in) and weighs around 700 kg (1,500 lb), though the largest individuals have been known to weigh as much as 1,000 kilograms.",
+         "3200" : "Wikipedia:Fully-grown males are larger than females in the wild, weighing from 2,500–3,200 kg (5,500–7,100 lb).",
+         "850" : "Wikipedia:An adult weighs from 850 to 1,600 kg (1,900 to 3,500 lb), exceptionally to 1,800 kg (4,000 lb), with the females being smaller than the males.",
+         "3800" : "Wikipedia:The record-sized specimen of this rhino was approximately 3,800 kg.",
+         "1600" : "Wikipedia:An adult weighs from 850 to 1,600 kg (1,900 to 3,500 lb), exceptionally to 1,800 kg (4,000 lb), with the females being smaller than the males.",
+         "1000" : "Wikipedia:Typically a mature Sumatran rhino stands about 130 cm (51 in) high at the shoulder, a body length of 240–315 cm (94–120 in) and weighs around 700 kg (1,500 lb), though the largest individuals have been known to weigh as much as 1,000 kilograms.",
+         "1400" : "Wikipedia:Adults are variously reported to weigh between 900–1,400 kg[15] or 1,360-2,000 kg[16].",
+         "2000" : "Wikipedia:Adults are variously reported to weigh between 900–1,400 kg[15] or 1,360-2,000 kg[16].",
+         "4600" : "Wikipedia:This rhino can exceed 3,500 kg (7,700 lb), have a head-and-body length of 3.5–4.6 m (11–15 ft) and a shoulder height of 1.8–2 m (5.9–6.6 ft) The record-sized White Rhinoceros was about 4,600 kg (10,000 lb)[10].",
+         "3500" : "Wikipedia:This rhino can exceed 3,500 kg (7,700 lb), have a head-and-body length of 3.5–4.6 m (11–15 ft) and a shoulder height of 1.8–2 m (5.9–6.6 ft) The record-sized White Rhinoceros was about 4,600 kg (10,000 lb)[10].",
+         "1812" : "Wikipedia:An adult weighs from 850 to 1,600 kg (1,900 to 3,500 lb), exceptionally to 1,800 kg (4,000 lb), with the females being smaller than the males."
+      }
+   },
+   "dolphin" : {
+      "weight" : {
+         "9070" : "Wikipedia:They vary in size from 1.2 m (4 ft) and 40 kg (90 lb) (Maui's Dolphin), up to 9.5 m (30 ft) and 10 tonnes (9.8 LT; 11 ST) (the Orca or Killer Whale).",
+         "40" : "Wikipedia:They vary in size from 1.2 m (4 ft) and 40 kg (90 lb) (Maui's Dolphin), up to 9.5 m (30 ft) and 10 tonnes (9.8 LT; 11 ST) (the Orca or Killer Whale)."
+      }
+   }
+}
