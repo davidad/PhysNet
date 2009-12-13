@@ -4,6 +4,7 @@ use utf8;
 use Lingua::EN::Sentence qw( get_sentences );
 use HTML::Parse;
 use HTML::FormatText;
+use File::Slurp;
 use Scalar::Util qw( looks_like_number );
 use JSON;
 
@@ -17,6 +18,14 @@ sub sigfigs {
 
 my $word = shift;
 my $url = "http://en.wikipedia.org/wiki/$word";
+
+my $dbfile = shift;
+if($dbfile) {
+  $db = from_json(read_file($dbfile));
+} else {
+  my %db = ();
+  $db = \%db;
+}
 
 system("wget --tries=3 $url -O /tmp/scraped.html -o /dev/null");
 my $html = parse_htmlfile( "/tmp/scraped.html");
@@ -71,7 +80,7 @@ foreach my $sentence (@$sentences) {
     }
     foreach my $val (@sentence_vals) {
       if(looks_like_number($val)) {
-        $vals{$val} = $sentence;
+        $vals{$val} = "Wikipedia:$sentence";
       }
     }
   }
@@ -82,4 +91,10 @@ foreach my $sentence (@$sentences) {
 #  print "$val\t$vals{$val}\n";
 #}
 
-print to_json(\%vals, {pretty => 1});
+$db->{$word}->{'weight'} = \%vals;
+if($dbfile) {
+  open DB, ">$dbfile";
+  print DB to_json($db, {pretty => 1});
+} else {
+  print to_json($db, {pretty => 1});
+}
