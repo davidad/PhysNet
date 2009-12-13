@@ -4,6 +4,14 @@ use Lingua::EN::Sentence qw( get_sentences );
 use File::Slurp;
 use Scalar::Util qw( looks_like_number );
 
+sub sigfigs {
+  my $num = shift;
+  if($num =~ s/([^0-9]|0(?![0.,]*[1-9]))//g) {
+    return length($num);
+  }
+  return 0;
+}
+
 my $word = shift;
 my $url = "http://en.wikipedia.org/wiki/$word";
 
@@ -22,12 +30,13 @@ foreach my $sentence (@$sentences) {
   if ($sentence =~ /([\d,.]+)\s*(lb|kg|pound|kilo|kilogram)s?/) {
     print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
     my @sentence_vals = ();
-    while ($sentence =~ m/([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
-      my $num = $1;
+    #while ($sentence =~ m/(?<min>[\d,.]+)?\s*(to|and|between|-|–)?\s*([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
+    while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|pound|kilogram)s?)/g) {
+      my $num = $+{'num'};
       my $match = $&;
-      my $units = "";
-      if ($match =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
-      if ($match =~ /(pound|lb)s?/) { $units = "lb"; }
+      my $units = $+{'units'};
+      if    ($units =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
+      elsif ($units =~ /(pound|lb)s?/) { $units = "lb"; }
       $num =~ s/,//g;
       print "    $num $units";
       if ($units =~ /lb/) {
@@ -40,13 +49,18 @@ foreach my $sentence (@$sentences) {
       print "\n";
     }
     print "\n";
+    @sentence_vals = sort {$a <=> $b} @sentence_vals;
     my $valcount = @sentence_vals;
     if($valcount >= 2) {
       for ($i=0; $i<($valcount-1); $i++) {
         if($sentence_vals[$i]) {
           $ratio =$sentence_vals[$i+1]/$sentence_vals[$i];
           if($ratio < 1.1 and $ratio > 0.9) {
-            delete $sentence_vals[$i+1];
+            if(sigfigs($sentence_vals[$i]) > sigfigs($sentence_vals[$i+1])) {
+              delete $sentence_vals[$i];
+            } else {
+              delete $sentence_vals[$i+1];
+            }
           }
         }
       }
