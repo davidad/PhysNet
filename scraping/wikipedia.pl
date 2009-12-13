@@ -40,21 +40,33 @@ my $sentences = get_sentences($text);
 foreach my $sentence (@$sentences) {
   #print "$sentence\n\n===\n\n";
   $sentence =~ s/\n/ /g;
-  if ($sentence =~ /([\d,.]+)\s*(lb|kg|pound|kilo|kilogram)s?/) {
+  if ($sentence =~ /([\d,.]+)\s*(lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?/) {
     #print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
     my @sentence_vals = ();
     #while ($sentence =~ m/(?<min>[\d,.]+)?\s*(to|and|between|-|–)?\s*([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
-    while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|pound|kilogram)s?)/g) {
+    while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?)/g) {
       my $num = $+{'num'};
       my $match = $&;
       my $units = $+{'units'};
       if    ($units =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
       elsif ($units =~ /(pound|lb)s?/) { $units = "lb"; }
+      elsif ($units =~ /(ounce|oz)s?/) { $units = "oz"; }
+      elsif ($units =~ /tons?/) { $units = "ton"; }
+      elsif ($units =~ /tonnes?/) { $units = "tonne"; }
       $num =~ s/,//g;
       #print "    $num $units";
       if ($units =~ /lb/) {
         $kg = 0.453 * $num;
         #print " ($kg kg)";
+        push(@sentence_vals, $kg);
+      } elsif ($units =~ /ton/) {
+        $kg = 907 * $num;
+        push(@sentence_vals, $kg);
+      } elsif ($units =~ /tonne/) {
+        $kg = 1000 * $num;
+        push(@sentence_vals, $kg);
+      } elsif ($units =~ /oz/) {
+        $kg = 0.0283 * $num;
         push(@sentence_vals, $kg);
       } else {
         push(@sentence_vals, $num);
