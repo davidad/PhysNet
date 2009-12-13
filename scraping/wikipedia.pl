@@ -1,8 +1,11 @@
 #!/usr/bin/perl -w
 
-use Lingua::EN::Sentence qw( get_sentences );
+#use Lingua::EN::Sentence qw( get_sentences );
+use Text::Sentence qw( split_sentences );
+use utf8;
 use File::Slurp;
 use Scalar::Util qw( looks_like_number );
+use JSON;
 
 sub sigfigs {
   my $num = shift;
@@ -19,16 +22,17 @@ system("wget --tries=3 $url -O /tmp/scraped.html -o /dev/null");
 system("html2text -ascii /tmp/scraped.html > /tmp/scraped.txt");
 
 my $text = read_file( "/tmp/scraped.txt" );
-$text =~ s/\.(\[\d+\])/$1\./g;
-my $sentences = get_sentences($text);
+$text =~ s/.//g;
+$text =~ s/\.((.\d+.)+)(?=\s+)/$1\./g;
+my @sentences = split_sentences($text);
 
 %vals = ();
 
-foreach my $sentence (@$sentences) {
+foreach my $sentence (@sentences) {
   #print "$sentence\n\n===\n\n";
   $sentence =~ s/\n/ /g;
   if ($sentence =~ /([\d,.]+)\s*(lb|kg|pound|kilo|kilogram)s?/) {
-    print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
+    #print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
     my @sentence_vals = ();
     #while ($sentence =~ m/(?<min>[\d,.]+)?\s*(to|and|between|-|–)?\s*([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
     while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|pound|kilogram)s?)/g) {
@@ -38,17 +42,17 @@ foreach my $sentence (@$sentences) {
       if    ($units =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
       elsif ($units =~ /(pound|lb)s?/) { $units = "lb"; }
       $num =~ s/,//g;
-      print "    $num $units";
+      #print "    $num $units";
       if ($units =~ /lb/) {
         $kg = 0.453 * $num;
-        print " ($kg kg)";
+        #print " ($kg kg)";
         push(@sentence_vals, $kg);
       } else {
         push(@sentence_vals, $num);
       }
-      print "\n";
+      #print "\n";
     }
-    print "\n";
+    #print "\n";
     @sentence_vals = sort {$a <=> $b} @sentence_vals;
     my $valcount = @sentence_vals;
     if($valcount >= 2) {
@@ -73,7 +77,9 @@ foreach my $sentence (@$sentences) {
   }
 }
 
-print "\n\nIN SORTED ORDER:\n";
-foreach $val (sort {$a <=> $b} (keys(%vals))){
-  print "$val\t$vals{$val}\n";
-}
+#print "\n\nIN SORTED ORDER:\n";
+#foreach $val (sort {$a <=> $b} (keys(%vals))){
+#  print "$val\t$vals{$val}\n";
+#}
+
+print to_json(\%vals, {pretty => 1});
