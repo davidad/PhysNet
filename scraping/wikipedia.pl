@@ -2,7 +2,8 @@
 
 use utf8;
 use Lingua::EN::Sentence qw( get_sentences );
-use File::Slurp;
+use HTML::Parse;
+use HTML::FormatText;
 use Scalar::Util qw( looks_like_number );
 use JSON;
 
@@ -18,9 +19,9 @@ my $word = shift;
 my $url = "http://en.wikipedia.org/wiki/$word";
 
 system("wget --tries=3 $url -O /tmp/scraped.html -o /dev/null");
-system("html2text -ascii /tmp/scraped.html > /tmp/scraped.txt");
-
-my $text = read_file( "/tmp/scraped.txt" );
+my $html = parse_htmlfile( "/tmp/scraped.html");
+$formatter = HTML::FormatText->new(leftmargin =>0, rightmargin => 2048);
+$text = $formatter->format($html);
 $text =~ s/.//g;
 $text =~ s/\."?((.\d+.)+)(?=\s+)/$1\. /g;
 my $sentences = get_sentences($text);
