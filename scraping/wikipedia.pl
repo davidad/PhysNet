@@ -40,10 +40,12 @@ my $sentences = get_sentences($text);
 foreach my $sentence (@$sentences) {
   #print "$sentence\n\n===\n\n";
   $sentence =~ s/\n/ /g;
+  $orig_sentence = $sentence;
   if ($sentence =~ /([\d,.]+)\s*(lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?/) {
     #print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
     my @sentence_vals = ();
     #while ($sentence =~ m/(?<min>[\d,.]+)?\s*(to|and|between|-|–)?\s*([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
+    $sentence =~ s/([\d,.]+ lb) [\d,.]+ oz/$1/g;
     while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?)/g) {
       my $num = $+{'num'};
       my $match = $&;
@@ -92,7 +94,7 @@ foreach my $sentence (@$sentences) {
     }
     foreach my $val (@sentence_vals) {
       if(looks_like_number($val)) {
-        $vals{$val} = "Wikipedia:$sentence";
+        $vals{$val} = "Wikipedia:$orig_sentence";
       }
     }
   }
