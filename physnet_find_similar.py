@@ -18,10 +18,10 @@ except NameError:
 
 def _make_size_matrix():
     matrixlist = []
-    sizefile = open("sizes")
+    sizefile = open("size_similarities.physnet")
     for line in sizefile:
         l = eval(line)
-        matrixlist.append(((l[0],l[1][1],l[1][2]),20))
+        matrixlist.append(((l[0],l[1][1],l[1][2]),40))
     return ConceptByFeatureMatrix.from_triples(matrixlist)
     
     
@@ -31,13 +31,15 @@ def _get_size_blend():
     size_blend = Blend([sizes, cnet]).normalized(mode=[0,1]).bake()
     return size_blend
     
-#sizeblend = get_picklecached_thing(FILEPATH+os.sep+'sizeblend.pickle.gz', _get_size_blend)
-#sizesvd = sizeblend.svd(k=100)
+sizeblend = get_picklecached_thing(FILEPATH+os.sep+'sizeblend.pickle.gz', _get_size_blend)
+sizesvd = sizeblend.svd(k=100)
 
 #cnet_norm = conceptnet_2d_from_db('en').normalized()
 #rawsvd = cnet_norm.svd()
 
 def get_similar_size_examples(concept):
+    if not concept in sizeblend:
+        return None
     concept_vector = sizesvd.weighted_u[concept,:].hat()
     like_concepts = sizesvd.u_angles_to(concept_vector)
     return like_concepts    
