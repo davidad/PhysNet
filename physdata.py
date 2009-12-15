@@ -78,8 +78,8 @@ def phys(string):
         if c in "123456789" and exponent_start == -1:
             if first_sig_fig == -1: first_sig_fig = i
             last_sig_fig = i
-        elif c == "0" and decimal_position != -1:
-            last_sig_fig = 
+        elif c == "0" and decimal_position != -1 and exponent_start == -1:
+            last_sig_fig = i
         
             #print "Last sig fig now", c
 
@@ -89,8 +89,8 @@ def phys(string):
     exponent = 0 if len(exponent_str) <= 1 else int(exponent_str[1:]) #trim off the 'e' if it is there
                 
     #we want to know the rounding error which will be 0.5 times the exponent of the last significant figure
-    last_sigfig_exponent = None
-    sigfigs = None
+    last_sigfig_exponent = 0
+    sigfigs = 0
     
     #make sure we have at least one
     if first_sig_fig != -1:
@@ -106,7 +106,8 @@ def phys(string):
             #print "not in middle"
             last_sigfig_exponent = decimal_position-last_sig_fig+exponent-1
             sigfigs = 1 + last_sig_fig - first_sig_fig
-        
+
+    
     
     unit_str = unit_str.replace(" ","")
     unit_list = unit_str.split("/")
@@ -132,7 +133,11 @@ def phys(string):
     #print "unit map = %s" % str(unit_map)
     
     num_val = float(numerical_str)*10**unit_exponent_delta
-    error = 0.5*10**last_sigfig_exponent
+    error = None
+    if sigfigs == 0: 
+        error = 0
+    else:
+        error = 0.5*10**last_sigfig_exponent
     return units(interval(num_val-error,num_val+error), unit_map)
 
 #phys("1.23mm")
@@ -140,6 +145,6 @@ def phys(string):
 #phys("1.23E3 km")
 #print phys("-123. mm^-3")
 #print
-#print phys("-10.0 km")
+print phys("1.003 km")
 
     
