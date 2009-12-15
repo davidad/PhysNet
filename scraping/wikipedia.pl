@@ -41,15 +41,16 @@ foreach my $sentence (@$sentences) {
   #print "$sentence\n\n===\n\n";
   $sentence =~ s/\n/ /g;
   $orig_sentence = $sentence;
-  if ($sentence =~ /([\d,.]+)\s*(lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?/) {
+  if ($sentence =~ /([\d,.]+)\s*(lb|kg|oz|pound|ounce|ton|tonne|kilos|kilogram)s?/) {
     #print "Wikipedia says: \"$sentence\"\nFrom this I got the following weights:\n";
     my @sentence_vals = ();
     #while ($sentence =~ m/(?<min>[\d,.]+)?\s*(to|and|between|-|–)?\s*([\d,.]+)\s*(lb|kg|pound|kilogram)s?/g) {
     $sentence =~ s/([\d,.]+ lb) [\d,.]+ oz/$1/g;
-    while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|oz|pound|ounce|ton|tonne|kilo|kilogram)s?)/g) {
+    while ($sentence =~ m/(?<num>[\d,.]+)(?=(\s*(to|between|and|-|–)\s*([\d,.]+))?\s*(?<units>lb|kg|oz|pound|ounce|ton|tonne|kilos|kilogram)s?)/g) {
       my $num = $+{'num'};
       my $match = $&;
       my $units = $+{'units'};
+      $num =~ s/^\s*\.\s*$/0/;
       if    ($units =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
       elsif ($units =~ /(pound|lb)s?/) { $units = "lb"; }
       elsif ($units =~ /(ounce|oz)s?/) { $units = "oz"; }
