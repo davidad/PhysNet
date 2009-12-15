@@ -50,6 +50,7 @@ foreach my $sentence (@$sentences) {
       my $num = $+{'num'};
       my $match = $&;
       my $units = $+{'units'};
+      $num =~ s/^\s*\.\s*$/0/;
       if    ($units =~ /(kilo|kilogram|kg)s?/) { $units = "kg"; }
       elsif ($units =~ /(pound|lb)s?/) { $units = "lb"; }
       elsif ($units =~ /(ounce|oz)s?/) { $units = "oz"; }
