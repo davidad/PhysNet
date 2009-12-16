@@ -52,17 +52,12 @@ def phys(string):
     last_sig_fig = -1
     exponent_start = -1
     decimal_position = -1
-    for i, c in enumerate(string):
+    i = 0
+    for c in string:
         
         #find the part that contains the number and pull out sigfigs and exponent location
-        if c not in "-+0123456789eE." or i == len(string)-1:
-            #check if the e was supposed to be part of the units
-            if exponent_start == -1: exponent_start = i
-            mantissa_str = string[0:exponent_start].strip()
-            exponent_str = string[exponent_start:i].strip()
-            numerical_str = string[0:i].strip()
-            unit_str = string[i:].strip()
-            break #we are done here so move on to conversions
+        if c not in "-+0123456789eE.":
+            break #we are done here so move on to extraction and conversions
             
         #look for the exponent
         if c in "eE":
@@ -80,9 +75,19 @@ def phys(string):
             last_sig_fig = i
         elif c == "0" and decimal_position != -1 and exponent_start == -1:
             last_sig_fig = i
-        
             #print "Last sig fig now", c
 
+        i += 1
+        
+    #check if the e was supposed to be part of the units
+    if exponent_start == -1: exponent_start = i
+    
+    #need to make sure we get all of the units
+    mantissa_str = string[0:exponent_start].strip()
+    exponent_str = string[exponent_start:i].strip()
+    numerical_str = string[0:i].strip()
+    unit_str = string[i:].strip()
+            
     if decimal_position == -1: decimal_position = len(mantissa_str)
     
     base = float(mantissa_str)
